@@ -1,0 +1,277 @@
+-- exercise 1
+mysql> source data/import-table-structure.sql
+Query OK, 3 rows affected (0.03 sec)
+
+Query OK, 1 row affected (0.00 sec)
+
+Database changed
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+-- exercise 2
+
+
+mysql> INSERT INTO Account (email,password,createdOn,modifiedOn)
+    -> VALUES ("candicec@gmail.com","kiw4tg","2017-03-24 08:27:33","2017-07-10 09:30:22");
+Query OK, 1 row affected (0.00 sec)
+mysql> INSERT INTO AddressBook (accountId,name,createdOn,modifiedOn)
+    -> VALUES ("cand!ce","candice","2016-07-24 17:30:33","2017-02-10 15:10:12");
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO Entry (firstName,lastName,birthday,type,subtype,contentLineOne,contentLineTwo)
+    -> VALUES ("Melinda","Blarfo","1986-07-22 17:30:33","Engineer","Mechanical","skiing","blue");
+Query OK, 1 row affected, 3 warnings (0.02 sec)
+
+
+--exercise 3
+
+mysql> SELECT * FROM Account;
++----+--------------------+----------+---------------------+---------------------+
+| id | email              | password | createdOn           | modifiedOn          |
++----+--------------------+----------+---------------------+---------------------+
+|  1 | candicec@gmail.com | kiw4tg   | 2017-03-24 08:27:33 | 2017-07-10 09:30:22 |
++----+--------------------+----------+---------------------+---------------------+
+1 row in set (0.01 sec)
+mysql> SELECT * FROM AddressBook;
++----+-----------+---------+---------------------+---------------------+
+| id | accountId | name    | createdOn           | modifiedOn          |
++----+-----------+---------+---------------------+---------------------+
+|  1 |         0 | candice | 2016-07-24 17:30:33 | 2017-02-10 15:10:12 |
++----+-----------+---------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Entry;
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+| id | addressBookId | firstName | lastName | birthday            | type | subtype | contentLineOne | contentLineTwo | contentLineThree | contentLineFour | contentLineFive |
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+|  1 |             0 | Melinda   | Blarfo   | 1986-07-22 17:30:33 |      |         | skiing         | blue           | NULL             | NULL            | NULL            |
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+1 row in set (0.00 sec)
+
+--exercise 4
+
+mysql> UPDATE Account
+    -> SET password = "asg78sgb98g"
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Account;
++----+--------------------+-------------+---------------------+---------------------+
+| id | email              | password    | createdOn           | modifiedOn          |
++----+--------------------+-------------+---------------------+---------------------+
+|  1 | candicec@gmail.com | asg78sgb98g | 2017-03-24 08:27:33 | 2017-07-10 09:30:22 |
++----+--------------------+-------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+UPDATE AddressBook
+SET accountId = 23
+WHERE name = "candice";
+
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM AddressBook;
++----+-----------+---------+---------------------+---------------------+
+| id | accountId | name    | createdOn           | modifiedOn          |
++----+-----------+---------+---------------------+---------------------+
+|  1 |        23 | candice | 2016-07-24 17:30:33 | 2017-02-10 15:10:12 |
++----+-----------+---------+---------------------+---------------------+
+1 row in set (0.00 sec)
+
+UPDATE Entry
+SET firstName="Steph",birthday = "1986-06-26 17:30:33",addressBookId=867
+WHERE id = 1;
+mysql> SELECT * FROM Entry;
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+| id | addressBookId | firstName | lastName | birthday            | type | subtype | contentLineOne | contentLineTwo | contentLineThree | contentLineFour | contentLineFive |
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+|  1 |           867 | Steph     | Blarfo   | 1986-06-26 17:30:33 |      |         | skiing         | blue           | NULL             | NULL            | NULL            |
++----+---------------+-----------+----------+---------------------+------+---------+----------------+----------------+------------------+-----------------+-----------------+
+1 row in set (0.00 sec)
+
+--exercise 5
+mysql> TRUNCATE TABLE Entry;
+Query OK, 0 rows affected (0.01 sec)
+
+--exercise 6
+DELETE FROM Account;
+DELETE FROM AddressBook;
+
+mysql> DELETE FROM Account;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DELETE FROM AddressBook;
+Query OK, 1 row affected (0.01 sec)
+
+--exercise 7
+source data/import-table-structure.sql
+source data/import-account.sql
+source data/import-addressbook.sql
+source data/import-entry.sql
+
+--exercise 8
+What is the email of the Account identified by "63"?
+SELECT email
+FROM Account
+WHERE id = 63;
++-------------------------------------------------+
+| email                                           |
++-------------------------------------------------+
+| consectetuer.rhoncus.Nullam@temporloremeget.org |
++-------------------------------------------------+
+1 row in set (0.00 sec)
+
+What are the names of the AdressBooks belonging to accountId "3"?
+SELECT name
+FROM AddressBook
+WHERE accountId = 3;
++---------------------------------+
+| name                            |
++---------------------------------+
+| Donec Incorporated              |
+| Ipsum Nunc LLC                  |
+| In Consectetuer Ltd             |
+| Lacus Aliquam Rutrum Industries |
+| Ac Ltd                          |
+| Mauris Consulting               |
+| Ornare Corporation              |
++---------------------------------+
+7 rows in set (0.00 sec)
+
+On which date was the AddressBook titled "Lorem Foundation" created?
+SELECT createdOn
+FROM AddressBook
+WHERE name = "Lorem Foundation";
++---------------------+
+| createdOn           |
++---------------------+
+| 2016-06-26 02:43:41 |
+| 2015-05-04 14:28:16 |
++---------------------+
+2 rows in set (0.00 sec)
+
+--exercise 9
+How many Accounts exist?
+
+mysql> SELECT COUNT(*)
+    -> FROM Account;
++----------+
+| COUNT(*) |
++----------+
+|     1000 |
++----------+
+1 row in set (0.00 sec)
+
+How many Address Books exist?
+
+mysql> SELECT COUNT(*)
+    -> FROM AddressBook;
++----------+
+| COUNT(*) |
++----------+
+|     1100 |
++----------+
+1 row in set (0.00 sec)
+
+How many Address Book Entries exist?
+mysql> SELECT COUNT(*)
+    -> FROM Entry;
++----------+
+| COUNT(*) |
++----------+
+|     4000 |
++----------+
+1 row in set (0.01 sec)
+
+--exercise 10
+How many Address Book Entries are listed as born before February 12th of 1982?
+mysql> SELECT COUNT(*)
+    -> FROM Entry
+    -> WHERE birthday<'1982-02-12';
++----------+
+| COUNT(*) |
++----------+
+|     2687 |
++----------+
+1 row in set (0.00 sec)
+
+
+How many Address Book Entries are listed as born on or after January 1st of 1965?
+mysql> SELECT COUNT(*)
+    -> FROM Entry
+    -> WHERE birthday >= '1965-01-01';
++----------+
+| COUNT(*) |
++----------+
+|     2597 |
++----------+
+1 row in set (0.00 sec)
+
+Which Address Book Entry is listed as being the oldest of age?
+>>>>Abigail Rollins
+
+mysql> SELECT firstName, lastName,birthday
+    -> FROM Entry
+    -> ORDER BY birthday
+    -> LIMIT 10;
++-----------+-----------+---------------------+
+| firstName | lastName  | birthday            |
++-----------+-----------+---------------------+
+| Abigail   | Rollins   | 1945-09-02 09:21:58 |
+| Charde    | Burns     | 1945-09-10 14:24:33 |
+| Aiko      | Valdez    | 1945-09-22 20:20:14 |
+| Lev       | Stokes    | 1945-09-24 01:43:24 |
+| Dora      | Gallagher | 1945-09-26 01:13:24 |
+| Mollie    | Hatfield  | 1945-09-26 10:39:29 |
+| Merritt   | Lowe      | 1945-09-26 13:47:02 |
+| Risa      | Mayer     | 1945-10-05 08:22:20 |
+| Jade      | Newman    | 1945-10-10 09:53:03 |
+| Hakeem    | Kelly     | 1945-10-14 04:34:27 |
++-----------+-----------+---------------------+
+10 rows in set (0.00 sec)
+
+--exercise 11
+How many Address Book Entries are not listed as other?
+mysql> SELECT type, COUNT(*)
+    -> FROM Entry
+    -> WHERE type!='other';
++------+----------+
+| type | COUNT(*) |
++------+----------+
+| home |     2800 |
++------+----------+
+1 row in set (0.00 sec)
+How many Address Book Entries are listed as either home or work?
+
+mysql> SELECT COUNT(*)
+    -> FROM Entry
+    -> WHERE type = 'home'
+    -> OR type = 'work';
++----------+
+| COUNT(*) |
++----------+
+|     2800 |
++----------+
+1 row in set (0.00 sec)
+
+
+How many Address Book Entries are listed as phones?
+mysql> SELECT COUNT(*)
+    -> FROM Entry
+    -> WHERE subtype = 'phone';
++----------+
+| COUNT(*) |
++----------+
+|      600 |
++----------+
+1 row in set (0.00 sec)
